@@ -1,0 +1,14 @@
+numpy
+pandas
+psycopg2-binary
+fastapi
+SQLAlchemy
+uvicorn
+passlib
+bcrypt
+cryptography
+python-jose
+python-multipart
+sqlacodegen
+tqdm
+argparse

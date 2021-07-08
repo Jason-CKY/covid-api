@@ -1,0 +1,7 @@
+.devcontainer
+.vscode
+.env
+*.csv
+__pycache__
+COVID-Database
+postgres-data
