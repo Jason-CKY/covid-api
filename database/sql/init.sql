@@ -18,8 +18,3 @@ CREATE TABLE Reports(
 CREATE INDEX idx_country ON Reports(Country_Region);
 CREATE INDEX idx_date ON Reports(Date);
 CREATE INDEX idx_state ON Reports(Province_State);
-
-COPY Reports(Province_State, Country_Region, Date, Last_Update, Lat, Long_, Confirmed, Deaths, Recovered, Active, Incident_Rate, Case_Fatality_Ratio)
-FROM '/data/final.csv' 
-DELIMITER ',' 
-CSV HEADER;
