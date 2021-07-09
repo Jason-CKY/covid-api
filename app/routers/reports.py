@@ -19,11 +19,11 @@ async def get_world_summary(filter_date: date = date.today(), db: Session = Depe
         func.sum(models.Report.recovered).label("total_recovered"),
         func.max(models.Report.last_update).label("last_update")
     ).first()
-
+    # print(results)
     if None in results:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Invalid date or data for this date not updated yet")
 
-    print(results)
+    
     return results
 
 @router.get("/", response_model=List[schemas.ShowReport], status_code=status.HTTP_200_OK)
@@ -58,7 +58,7 @@ async def get_country_report(country_region: str, date_from: date, date_to: date
     return results.all()
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/",response_model=schemas.Report, status_code=status.HTTP_201_CREATED)
 async def create_report(request: schemas.ReportRequest, db: Session = Depends(database.get_db)):
     report = models.Report(
         country_region = request.country_region,
@@ -81,7 +81,7 @@ async def create_report(request: schemas.ReportRequest, db: Session = Depends(da
 
     return report
 
-@router.get("/{id}", response_model=schemas.ShowReport, status_code=status.HTTP_200_OK)
+@router.get("/{id}", response_model=schemas.Report, status_code=status.HTTP_200_OK)
 async def get_report(id: int, db: Session = Depends(database.get_db)):
     results = db.query(models.Report).filter(models.Report.reportid == id).first()
     if not results:
@@ -101,7 +101,7 @@ def delete_report(id: int, db: Session = Depends(database.get_db)):
 async def update_report(id: int, request: schemas.ReportRequest, db: Session = Depends(database.get_db)):
     results = db.query(models.Report).filter(models.Report.reportid == id)
     if not results.first():
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Reports with id={id} not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Reports with id={id} not found")
     results.update({
         models.Report.country_region: request.country_region,
         models.Report.province_state : request.province_state,

@@ -10,4 +10,4 @@ app.include_router(timeline.router)
 
 @app.get('/')
 def root():
-    return {"Hello": "World"}
+    return {"msg": "Hello World"}    
