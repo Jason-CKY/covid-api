@@ -11,7 +11,7 @@ services:
     depends_on: 
       - db      
     command: ["./wait-for-it.sh", "db:5432", "-t", "0", "--", "../start.sh"]
-    restart: always
+    restart: on-failure
   db:
     image: postgres:12-alpine
     container_name: postgres
@@ -21,7 +21,9 @@ services:
     env_file:
       - ./app/.env
     volumes:
-      - ./database/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/data:/data
+      - ./database/sql:/docker-entrypoint-initdb.d/
+      - ./postgres-data:/var/lib/postgresql/data
   loadtester:
       image : locustio/locust
       ports:

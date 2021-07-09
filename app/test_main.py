@@ -98,17 +98,13 @@ def test_read_bad_country_daily_report_1():
     response = client.get('/daily/?country_region=Singapore&_date=2020-01-01')
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
-def test_read_bad_country_daily_report_2():
-    response = client.get('/daily/?country_region=Singapore&_date=2021-05-07')
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-
 def test_read_country_daily_report():
     response = client.get('/daily/?country_region=Singapore&_date=2021-05-06')
     assert response.status_code == status.HTTP_200_OK
 
 def test_read_bad_world_daily_report():
     response = client.get("/daily/world?filter_date=2020-01-01")
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert response.status_code == status.HTTP_404_NOT_FOUND
 
 def test_read_world_daily_report():
     response = client.get("/daily/world?filter_date=2021-05-06")

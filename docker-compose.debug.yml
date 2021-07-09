@@ -5,7 +5,7 @@ services:
     build:
       context: ./app
       target: base
-    image: covid-api:test
+    image: covid-api:dev
     ports:
       - 8000:80
     depends_on: 
