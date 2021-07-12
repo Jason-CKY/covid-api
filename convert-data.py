@@ -9,7 +9,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-o', '--output', type=str, default='database/data/final.csv', help='path to processed csv file')
-    parser.add_argument('-d', '--data', type=str, default='COVID-19-master', help='path to cloned data repo')
+    parser.add_argument('-d', '--data', type=str, default='COVID-19', help='path to cloned data repo')
 
     return parser.parse_args()
 
@@ -75,7 +75,7 @@ def main():
         'Recovered': 'Int64',
         'Active': 'Int64'
     })
-    output_df.to_csv('database/data/final.csv', index=False)
+    output_df.to_csv(args.output, index=False)
     print("Data processed and saved to database/data/final.csv")
 
 if __name__ == '__main__':
