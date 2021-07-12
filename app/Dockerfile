@@ -3,6 +3,7 @@ COPY ./requirements.txt /requirements.txt
 COPY ./.env .env
 RUN pip install -r /requirements.txt
 COPY ./ /app
+RUN chmod +x /app/wait-for-it.sh
 ENV PYTHONPATH /app
 
 FROM base as test

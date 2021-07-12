@@ -3,5 +3,5 @@
 .env
 *.csv
 __pycache__
-COVID-Database
+COVID-19
 postgres-data

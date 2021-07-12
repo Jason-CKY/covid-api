@@ -89,7 +89,7 @@ async def get_report(id: int, db: Session = Depends(database.get_db)):
     return results
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_report(id: int, db: Session = Depends(database.get_db)):
+async def delete_report(id: int, db: Session = Depends(database.get_db)):
     results = db.query(models.Report).filter(models.Report.reportid == id)
     if not results.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Reports with id={id} not found")
